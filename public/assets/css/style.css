@@ -1,0 +1,3 @@
+.container header, .container section:first-child{
+    margin-top: 50px;
+}

@@ -1,0 +1,54 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('Você na DecoTV')->setSeparator(' - ')->setAutoEscape(false) . PHP_EOL; ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge') . PHP_EOL;
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/assets/images/favicon.ico'))
+                ->appendStylesheet($this->basePath('/assets/bower_components/bootstrap/dist/css/bootstrap.min.css'))
+                ->appendStylesheet($this->basePath('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'))
+                ->appendStylesheet($this->basePath('/assets/css/style.css')). PHP_EOL; ?>
+
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+                ->appendFile($this->basePath('/assets/bower_components/jquery/dist/jquery.min.js'))
+                ->appendFile($this->basePath('/assets/bower_components/bootstrap/dist/js/bootstrap.min.js'))
+                ->appendFile($this->basePath('/assets/js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->appendFile($this->basePath('/assets/js/html5shiv.min.js'),   'text/javascript', array('conditional' => 'lt IE 9',)) . PHP_EOL;
+        ?>
+
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <img src="/assets/images/logo.jpg" id="logo_tintas_coral">
+                    </div>
+                </div>
+            </header>
+
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+<!-- BEGIN CONTENT -->
+
+<?php echo $this->content; ?>
+
+<!-- END CONTENT -->
+
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>
