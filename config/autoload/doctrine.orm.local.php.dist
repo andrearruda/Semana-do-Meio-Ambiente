@@ -10,7 +10,7 @@ return array(
                     'port'     => '',
                     'user'     => '',
                     'password' => '',
-                    'dbname'   => 'semanadomeioambiente',
+                    'dbname'   => '',
                     'driverOptions' => array(
                         1002 => 'SET NAMES utf8'
                     )
