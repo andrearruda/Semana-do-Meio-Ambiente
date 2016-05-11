@@ -61,3 +61,10 @@
     color: rgba(0, 0, 0, .5);
     font-size: 12px;
 }
+
+.container section .pg_common #title h1{
+    display: inline;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    text-transform: uppercase;
+}

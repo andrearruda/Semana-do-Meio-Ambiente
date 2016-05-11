@@ -87,4 +87,17 @@ class MessageService
 
         return $message;
     }
+
+    public function findAll()
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        return $repository_message->findAll();
+    }
+
+    public function findById($id)
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        return $repository_message->findOneById($id);
+    }
+
 }

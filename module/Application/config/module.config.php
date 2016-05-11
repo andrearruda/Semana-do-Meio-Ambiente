@@ -36,36 +36,58 @@ return array(
                     )
                 )
             ),
-            // The following is a route to simplify getting started creating
-            // new controllers and actions without needing to create a new
-            // module. Simply drop new controllers in, and you can access them
-            // using the path /application/:controller/:action
-            'application' => array(
-                'type'    => 'Literal',
+
+            'message' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
-                    'route'    => '/application',
+                    'route' => '/message',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Application\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
+                        'controller'    => 'Message',
+                        'action'        => 'index'
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'default' => array(
-                        'type'    => 'Segment',
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route' => '[/:action[/:id]]',
                             'constraints' => array(
-                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'    => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'id'        => '\d+',
                             ),
                             'defaults' => array(
                             ),
                         ),
                     ),
-                ),
-            ),
+                    'paginator' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '[/page/:page]',
+                            'constraints' => array(
+                                'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+',
+                            ),
+                            'defaults' => array(
+                                'action'    => 'index',
+                                'page'      => 1
+                            ),
+                        ),
+                    ),
+                    'list' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Segment',
+                        'options' => array(
+                            'route' => '[/list.:format]',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'controller'    => 'Message',
+                                'action'        => 'list',
+                            )
+                        )
+                    ),
+                )
+            )
         ),
     ),
     'service_manager' => array(
@@ -89,10 +111,11 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-//            'Application\Controller\Index' => Controller\IndexController::class
+//            'Application\Controller\Message' => Controller\MessageController::class
         ),
         'factories' => array(
-            'Application\Controller\Index' => 'Application\Factory\IndexFactory'
+            'Application\Controller\Index' => 'Application\Factory\IndexFactory',
+            'Application\Controller\Message' => 'Application\Factory\MessageFactory'
         )
     ),
     'view_manager' => array(

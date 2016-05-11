@@ -1,0 +1,7 @@
+.pg_message .list_table{
+    margin-top: 25px;
+}
+
+.pg_message .list_table .pagination li a{
+    border-radius: 0px;
+}
