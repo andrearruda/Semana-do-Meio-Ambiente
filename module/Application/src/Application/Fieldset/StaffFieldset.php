@@ -1,8 +1,8 @@
 <?php
 namespace Application\Fieldset;
 
+use Doctrine\ORM\EntityManager;
 use Zend\Form\Fieldset;
-use Doctrine\Common\Persistence\ObjectManager;
 use Zend\InputFilter\InputFilterProviderInterface;
 
 class StaffFieldset extends Fieldset implements InputFilterProviderInterface
@@ -74,7 +74,7 @@ class StaffFieldset extends Fieldset implements InputFilterProviderInterface
         );
     }
 
-    public function __construct(ObjectManager $objectManager)
+    public function __construct(EntityManager $entityManager)
     {
         parent::__construct('staff');
 
@@ -88,7 +88,7 @@ class StaffFieldset extends Fieldset implements InputFilterProviderInterface
                 ),
                 'twb-layout' => 'horizontal',
                 'column-size' => 'md-9',
-                'object_manager' => $objectManager,
+                'object_manager' => $entityManager,
                 'target_class'   => 'Application\Entity\Unit',
                 'property'       => 'name',
                 'empty_option'   => 'Escolha uma unidade'
