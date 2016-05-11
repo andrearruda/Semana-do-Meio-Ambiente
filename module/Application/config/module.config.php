@@ -21,6 +21,20 @@ return array(
                         'action'     => 'index',
                     ),
                 ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'thankyou' => array(
+                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'options' => array(
+                            'route' => 'thankyou',
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'controller'    => 'Index',
+                                'action'        => 'thankYou',
+                            ),
+                        ),
+                    )
+                )
             ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
@@ -75,8 +89,11 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
+//            'Application\Controller\Index' => Controller\IndexController::class
         ),
+        'factories' => array(
+            'Application\Controller\Index' => 'Application\Factory\IndexFactory'
+        )
     ),
     'view_manager' => array(
         'display_not_found_reason' => true,
