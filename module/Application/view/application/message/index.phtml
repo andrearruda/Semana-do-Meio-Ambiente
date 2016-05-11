@@ -22,7 +22,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th width="130">Unidade</th>
+                        <th width="100">Unidade</th>
                         <th>Nome</th>
                         <th width="40">#</th>
                     </tr>
@@ -30,7 +30,7 @@
                     <tbody>
 <?php foreach($this->data as $entity):?>
                         <tr>
-                            <td><?php echo $entity->getStaff()->getUnit()->getName(); ?></td>
+                            <td><?php echo $entity->getStaff()->getUnit()->getInitials(); ?></td>
                             <td><?php echo $entity->getStaff()->getName();?></td>
                             <td>
                                 <div class="btn-group btn-group-sm">
