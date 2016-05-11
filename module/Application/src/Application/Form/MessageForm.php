@@ -1,13 +1,13 @@
 <?php
 namespace Application\Form;
 
+use Doctrine\ORM\EntityManager;
 use Zend\Form\Form;
-use Doctrine\Common\Persistence\ObjectManager;
 use Application\Fieldset\StaffFieldset;
 
 class MessageForm extends Form
 {
-    public function __construct(ObjectManager $objectManager)
+    public function __construct(EntityManager $entityManager)
     {
         parent::__construct('form_message');
 
@@ -16,7 +16,7 @@ class MessageForm extends Form
             'name' => 'csrf'
         ));
 
-        $fieldset_staff = new StaffFieldset($objectManager);
+        $fieldset_staff = new StaffFieldset($entityManager);
         $fieldset_staff->setLabel('Seus Dados');
         $fieldset_staff->setName('fieldset_staff');
         $this->add($fieldset_staff);
