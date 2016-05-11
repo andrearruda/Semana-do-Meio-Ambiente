@@ -10,17 +10,17 @@
 namespace Application\Controller;
 
 use Application\Form\MessageForm;
+use Application\Service\MessageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Imagine\Gd\Imagine;
-use Imagine\Image\Box;
 
 class IndexController extends AbstractActionController
 {
+    protected $entityManager;
+
     public function indexAction()
     {
-        $objectManager = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
-        $form = new MessageForm($objectManager);
+        $form = new MessageForm($this->getEntityManager());
 
         $request = $this->getRequest();
         if ($request->isPost())
@@ -43,35 +43,11 @@ class IndexController extends AbstractActionController
             if ($form->isValid())
             {
                 $data_form = $form->getData();
-                $pathinfo = pathinfo($data_form['fieldset_message']['image']['tmp_name']);
 
-                $imgs = array(
-                    'middle' => array(
-                        'path' => substr($pathinfo['dirname'], 0, -9) . '/middle/' . $pathinfo['basename'],
-                        'mode' => \Imagine\Image\ImageInterface::THUMBNAIL_INSET,
-                        'size' => array(
-                            'w' => 890,
-                            'h' => 500
-                        )
-                    ),
-                    'thumb' => array(
-                        'path' => substr($pathinfo['dirname'], 0, -9) . '/thumb/' . $pathinfo['basename'],
-                        'mode' => \Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND,
-                        'size' => array(
-                            'w' => 200,
-                            'h' => 200
-                        )
-                    )
-                );
+                $service_message = new MessageService($this->getEntityManager());
+                $service_message->insert($data_form);
 
-                $imagine = new Imagine();
-                foreach($imgs as $img)
-                {
-                    $size = new Box($img['size']['w'], $img['size']['h']);
-                    $imagine->open($data_form['fieldset_message']['image']['tmp_name'])
-                        ->thumbnail($size, $img['mode'])
-                        ->save($img['path']);
-                }
+                return $this->redirect()->toRoute('home/thankyou');
             }
             else
             {
@@ -87,4 +63,26 @@ class IndexController extends AbstractActionController
             'form' => $form,
         );
     }
+
+    public function thankYouAction(){
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntityManager()
+    {
+        return $this->entityManager;
+    }
+
+    /**
+     * @param mixed $entityManager
+     */
+    public function setEntityManager($entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+
 }
