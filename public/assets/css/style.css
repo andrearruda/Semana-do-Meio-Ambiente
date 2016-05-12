@@ -86,14 +86,7 @@
     font-weight: 300;
 }
 
-.container section #load_modal .modal-body h2{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    margin: 0px;
-}
-
-.container section #load_modal .modal-body span{
+.container section #load_modal .modal-body{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-    text-transform: uppercase;
 }

@@ -8,6 +8,6 @@ nbproject
 .project
 .settings
 vendor
-data
+data/uploads
 public/assets/bower_components
 composer.phar

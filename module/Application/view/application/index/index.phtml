@@ -2,57 +2,63 @@
     $form = $this->form;
     $form->prepare();
 ?>
-<div class="pg_form">
-    <section>
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <h1>SEMANA DO MEIO AMBIENTE</h1>
-                <p>
-                    O Dia Mundial do Meio Ambiente será lembrado em São Paulo com programação especial entre os dias 27 de maio e 7 de junho.
-                </p>
-            </div>
-        </div>
-    </section>
+<div class="row">
+    <div class="col-md-6 col-lg-offset-3">
 
-    <section>
-        <?php echo $this->form()->openTag($form) . PHP_EOL; ?>
+        <div class="pg_form">
+            <section>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h1>SEMANA DO MEIO AMBIENTE</h1>
+                        <p>
+                            O Dia Mundial do Meio Ambiente será lembrado em São Paulo com programação especial entre os dias 27 de maio e 7 de junho.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+<?php echo $this->form()->openTag($form) . PHP_EOL; ?>
 <?php
     foreach($form->getElements() as $element):
 ?>
-            <?php echo $this->formRow($element) . PHP_EOL;?>
+<?php echo $this->formRow($element) . PHP_EOL;?>
 <?php
     endforeach;
 ?>
 <?php
     foreach($form->getFieldsets() as $fieldset):
 ?>
-            <fieldset>
-                <legend><?php echo $fieldset->getLabel();?></legend>
+                    <fieldset>
+                        <legend><?php echo $fieldset->getLabel();?></legend>
 <?php
         foreach($fieldset->getElements() as $element):
 ?>
-                <div class="form-group<?php if($this->formElementErrors($element)):?> has-error<?php endif;?>">
-                    <?php echo $this->formLabel($element) . PHP_EOL; ?>
-                    <div class="col-<?php echo $element->getOptions()['column-size'];?>">
-                        <?php echo $this->formElement($element) . PHP_EOL;?>
-                    </div><?php echo $this->formElementErrors()
-                    ->setMessageOpenFormat('<div class="col-md-9 col-md-offset-3"><div class="help-inline">')
-                    ->setMessageSeparatorString('</div><div class="help-inline">')
-                    ->setMessageCloseString('</div></div>')
-                    ->render($element) . PHP_EOL; ?>
-                </div>
+                            <div class="form-group<?php if($this->formElementErrors($element)):?> has-error<?php endif;?>">
+                                <?php echo $this->formLabel($element) . PHP_EOL; ?>
+                                <div class="col-<?php echo $element->getOptions()['column-size'];?>">
+                                    <?php echo $this->formElement($element) . PHP_EOL;?>
+                                </div><?php echo $this->formElementErrors()
+                                        ->setMessageOpenFormat('<div class="col-md-9 col-md-offset-3"><div class="help-inline">')
+                                        ->setMessageSeparatorString('</div><div class="help-inline">')
+                                        ->setMessageCloseString('</div></div>')
+                                        ->render($element) . PHP_EOL; ?>
+                            </div>
 <?php
         endforeach;
 ?>
-            </fieldset>
+                    </fieldset>
 <?php
     endforeach;
 ?>
-        <div class="row">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-default pull-right">ENVIAR</button>
-            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-default pull-right">ENVIAR</button>
+                        </div>
+                    </div>
+                <?php echo $this->form()->closeTag() . PHP_EOL; ?>
+            </section>
         </div>
-        <?php echo $this->form()->closeTag() . PHP_EOL; ?>
-    </section>
+
+    </div>
 </div>

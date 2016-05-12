@@ -88,6 +88,30 @@ class MessageService
         return $message;
     }
 
+    public function update($data, $id)
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        $message = $repository_message->findOneById($id);
+
+        $this->hydrator->hydrate($data, $message);
+
+        $this->entity_manager->persist($message);
+        $this->entity_manager->flush();
+
+        return $message;
+    }
+
+    public function delete($id)
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        $message = $repository_message->findOneById($id);
+
+        $this->entity_manager->remove($message);
+        $this->entity_manager->flush();
+
+        return true;
+    }
+
     public function findAll()
     {
         $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');

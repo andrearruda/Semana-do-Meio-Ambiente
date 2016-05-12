@@ -1,5 +1,5 @@
 <?php
-$this->headTitle('Mensagens')->append('Editar');
+    $this->headTitle('Mensagens')->append('Editar');
 ?>
 
 <!-- Modal -->
@@ -14,7 +14,17 @@ $this->headTitle('Mensagens')->append('Editar');
             </div>
             <div class="modal-body">
                 <h2><?php echo $entity->getStaff()->getName();?></h2>
-                <span><?php echo $entity->getStaff()->getDepartament();?> / <?php echo $entity->getStaff()->getUnit()->getName() . PHP_EOL;?></span>
+                <div class="info">
+                    <span class="departament"><?php echo $entity->getStaff()->getDepartament();?> / <?php echo $entity->getStaff()->getUnit()->getName();?></span> <br />
+                    <span class="email"><?php echo $entity->getStaff()->getEmail();?></span>
+                </div>
+
+                <hr size="1">
+
+                <div class="info">
+                    <span class="date">Criado em: <span><?php echo $this->dateFormat($entity->getCreatedAt(),  IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'pt_BR');?></span></span> <br />
+                    <span class="date">Atualizado em: <span><?php echo $this->dateFormat($entity->getUpdatedAt(),  IntlDateFormatter::MEDIUM, IntlDateFormatter::SHORT, 'pt_BR');?></span></span>
+                </div>
 
                 <hr size="1">
 

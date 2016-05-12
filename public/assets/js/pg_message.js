@@ -1,58 +1,47 @@
 $(document).ready(function() {
-    $('.bt_show').click(function(){
-        var bt = $(this);
-        var id = $(this).attr('data-key');
+    $('[name="active"]').bootstrapSwitch();
+    $('[name="active"]').on('switchChange.bootstrapSwitch init.bootstrapSwitch', function(event,  state) {
+        var my_checkbox = $(this);
+        var active = this.checked ? '1' : '0';
+        var url = $(this).attr('data-url');
 
         $.ajax({
             type: 'GET',
-            url: '/message/show/' + id,
+            data: ({active: active}),
+            url: url,
             dataType: 'text',
             success: function(data){
-                console.log('success');
-                $('#load_modal').html(data);
-                $('#load_modal #myModal').modal();
             },
             beforeSend: function(){
-                console.log('beforeSend');
+                my_checkbox.attr('disabled', true);
             },
+            complete: function(){
+                my_checkbox.removeAttr('disabled');
+            }
         });
-    });
+    })
 
-    $('.bt_edit').click(function(){
+    $('.pg_message .bt_modal_action').click(function(){
         var bt = $(this);
-        var id = $(this).attr('data-key');
+        var bt_dropdown = bt.parent().parent().parent().find('button');
+        var url = $(this).attr('data-url');
 
         $.ajax({
             type: 'GET',
-            url: '/message/edit/' + id,
+            url: url,
             dataType: 'text',
             success: function(data){
-                console.log('success');
                 $('#load_modal').html(data);
                 $('#load_modal #myModal').modal();
             },
             beforeSend: function(){
-                console.log('beforeSend');
+                bt_dropdown.find('i').removeClass();
+                bt_dropdown.find('i').addClass('fa fa-cog fa-spin');
             },
-        });
-    });
-
-    $('.bt_delete').click(function(){
-        var bt = $(this);
-        var id = $(this).attr('data-key');
-
-        $.ajax({
-            type: 'GET',
-            url: '/message/delete/' + id,
-            dataType: 'text',
-            success: function(data){
-                console.log('success');
-                $('#load_modal').html(data);
-                $('#load_modal #myModal').modal();
-            },
-            beforeSend: function(){
-                console.log('beforeSend');
-            },
+            complete: function(){
+                bt_dropdown.find('i').removeClass();
+                bt_dropdown.find('i').addClass('caret');
+            }
         });
     });
 });

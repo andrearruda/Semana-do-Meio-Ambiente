@@ -7,6 +7,7 @@ use Zend\Paginator\Paginator;
 use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
 
 class MessageController extends AbstractActionController
 {
@@ -62,13 +63,46 @@ class MessageController extends AbstractActionController
         $id = $this->params()->fromRoute('id');
         $service_message = new MessageService($this->getEntityManager());
 
-        $entity = $service_message->findById($id);
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+            $service_message->delete($id);
 
-        $viewModel = new ViewModel(array(
-            'entity' => $entity
-        ));
-        $viewModel->setTerminal(true);
-        return $viewModel;
+            $data = array(
+                'id' => $id
+            );
+
+            $jsonModel = new JsonModel($data);
+
+            return $jsonModel;
+        }
+        else
+        {
+            $entity = $service_message->findById($id);
+
+            $viewModel = new ViewModel(array(
+                'entity' => $entity
+            ));
+            $viewModel->setTerminal(true);
+            return $viewModel;
+        }
+    }
+
+    public function activeAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $data = array(
+            'active' => $this->params()->fromQuery('active')
+        );
+        $service_message = new MessageService($this->getEntityManager());
+        $message = $service_message->update($data, $id);
+
+        $hydrator = new DoctrineHydrator($this->getEntityManager());
+        $data = $hydrator->extract($message);
+
+        $jsonModel = new JsonModel($data);
+
+        return $jsonModel;
     }
 
     /**
@@ -86,6 +120,4 @@ class MessageController extends AbstractActionController
     {
         $this->entityManager = $entityManager;
     }
-
-
 }
