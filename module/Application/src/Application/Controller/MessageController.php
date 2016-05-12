@@ -43,6 +43,34 @@ class MessageController extends AbstractActionController
         return $viewModel;
     }
 
+    public function editAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $service_message = new MessageService($this->getEntityManager());
+
+        $entity = $service_message->findById($id);
+
+        $viewModel = new ViewModel(array(
+            'entity' => $entity
+        ));
+        $viewModel->setTerminal(true);
+        return $viewModel;
+    }
+
+    public function deleteAction()
+    {
+        $id = $this->params()->fromRoute('id');
+        $service_message = new MessageService($this->getEntityManager());
+
+        $entity = $service_message->findById($id);
+
+        $viewModel = new ViewModel(array(
+            'entity' => $entity
+        ));
+        $viewModel->setTerminal(true);
+        return $viewModel;
+    }
+
     /**
      * @return mixed
      */

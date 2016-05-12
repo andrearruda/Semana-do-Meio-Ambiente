@@ -6,6 +6,18 @@
     margin: 50px 0px;
 }
 
+.container footer{
+    margin: 50px 0px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 12px;
+    color: #999999;
+
+    border-top: dotted 1px #cccccc;
+    padding-top: 50px;
+    display: block;
+}
+
 .container section{
     color: #999999;
 }

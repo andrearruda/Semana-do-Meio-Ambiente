@@ -33,14 +33,14 @@
             <header>
                 <div class="row">
                     <div class="col-md-12 text-center">
-                        <img src="/assets/images/logo.jpg" id="logo_tintas_coral">
+                        <img src="<?php echo $this->basePath('/assets/images/logo.jpg');?>" id="logo_tintas_coral">
                     </div>
                 </div>
             </header>
 
             <section class="content">
                 <div class="row">
-                    <div class="col-md-6 col-lg-offset-3">
+                    <div class="col-md-6 col-md-offset-3">
 <!-- BEGIN CONTENT -->
 
 <?php echo $this->content; ?>
@@ -50,6 +50,21 @@
                     </div>
                 </div>
             </section>
+
+            <footer>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="row">
+                            <div class="col-md-8">
+                                © Copyright 2016 Imperial Chemical Industries Ltd
+                            </div>
+                            <div class="col-md-4">
+                                <img src="<?php echo $this->basePath('/assets/images/akzonobel-blue.png');?>" class="pull-right">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
         </div>
         <?php echo $this->inlineScript() ?>
