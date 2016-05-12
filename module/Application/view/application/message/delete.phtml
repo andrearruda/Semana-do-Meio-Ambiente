@@ -14,8 +14,8 @@ $(document).ready(function() {
             url: url,
             dataType: 'text',
             success: function(data){
-                console.log(data);
                 $('#myModal').modal('toggle');
+                location.reload();
             },
             beforeSend: function(){
                 bt.attr('disabled', true);

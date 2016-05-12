@@ -166,9 +166,10 @@ return array(
         'eventmanager' => array(
             'orm_default' => array(
                 'subscribers' => array(
-                    'Gedmo\SoftDeleteable\SoftDeleteableListener',
                     'Gedmo\Timestampable\TimestampableListener',
+                    'Gedmo\SoftDeleteable\SoftDeleteableListener'
                 ),
+
             ),
         ),
         'driver' => array(
@@ -189,6 +190,12 @@ return array(
                 )
             )
         ),
+    ),
+
+    'asset_bundle' => array(
+        'assets' => array(
+            'less' => array('@zfRootPath/vendor/twitter/bootstrap/less/bootstrap.less')
+        )
     ),
 
     // Placeholder for console routes

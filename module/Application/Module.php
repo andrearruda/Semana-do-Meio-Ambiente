@@ -27,6 +27,12 @@ class Module
         $translator->addTranslationFile('phpArray', __DIR__ . '/../../vendor/zendframework/zend-i18n-resources/languages/pt_BR/Zend_Captcha.php', 'default', 'pt_BR');
         $translator->setLocale ('pt_BR');
         AbstractValidator::setDefaultTranslator(new \Zend\Mvc\I18n\Translator($translator));
+
+        /**
+         * @var $entityManager \Doctrine\ORM\EntityManager
+         */
+        $entityManager = $e->getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default');
+        $entityManager->getConfiguration()->addFilter('soft-deleteable', 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter');
     }
 
     public function getConfig()

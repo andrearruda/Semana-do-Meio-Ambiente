@@ -5,6 +5,7 @@ use Application\Entity\Message;
 use Application\Entity\Staff;
 use Doctrine\ORM\EntityManager;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use Doctrine\Common\Collections\Criteria;
 use Imagine\Gd\Imagine;
 use Imagine\Image\Box;
 
@@ -19,7 +20,6 @@ class MessageService
      * @var $hydrator DoctrineHydrator
      */
     protected $hydrator;
-
 
     public function __construct(EntityManager $entity_manager)
     {
@@ -114,8 +114,18 @@ class MessageService
 
     public function findAll()
     {
+        $this->entity_manager->getFilters()->enable('soft-deleteable');
+
         $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
         return $repository_message->findAll();
+
+/*        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+
+        $criteria = Criteria::create()
+            ->where(Criteria::expr()->eq('deletedAt', null))
+            ->orderBy(array('id' => Criteria::DESC));
+
+        return $repository_message->matching($criteria)->toArray();*/
     }
 
     public function findById($id)
