@@ -1,2 +1,33 @@
 <!-- Modal -->
-<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Show / Mensagens</h4>
+            </div>
+            <div class="modal-body">
+                <h2><?php echo $entity->getStaff()->getName();?></h2>
+                <span><?php echo $entity->getStaff()->getDepartament();?> / <?php echo $entity->getStaff()->getUnit()->getName() . PHP_EOL;?></span>
+
+                <hr size="1">
+
+                <p>
+                    <?php echo $entity->getDescription() . PHP_EOL;?>
+                </p>
+
+                <hr size="1">
+
+                <p>
+                    <img src="<?php echo $this->basePath('upload/images/semanadomeioambiente/middle/' . $entity->getImage());?>" class="center-block img-responsive" />
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -36,7 +36,6 @@ return array(
                     )
                 )
             ),
-
             'message' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -87,7 +86,32 @@ return array(
                         )
                     ),
                 )
-            )
+            ),
+            'upload' => array(
+                'type'    => 'Literal',
+                'options' => array(
+                    'route'    => '/upload',
+                ),
+                'may_terminate' => true,
+                'child_routes' => array(
+                    'default' => array(
+                        'type'    => 'Segment',
+                        'options' => array(
+                            'route'    => '/images/[:folder]/[:type]/[:file]',
+                            'constraints' => array(
+                                'folder' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'type'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+//                                'file'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ),
+                            'defaults' => array(
+                                '__NAMESPACE__' => 'Application\Controller',
+                                'controller'    => 'ImageUpload',
+                                'action'        => 'index',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
         ),
     ),
     'service_manager' => array(
@@ -111,7 +135,7 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-//            'Application\Controller\Message' => Controller\MessageController::class
+            'Application\Controller\ImageUpload' => Controller\ImageUploadController::class
         ),
         'factories' => array(
             'Application\Controller\Index' => 'Application\Factory\IndexFactory',

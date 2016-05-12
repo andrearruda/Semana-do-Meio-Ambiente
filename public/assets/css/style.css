@@ -1,5 +1,9 @@
-.container header, .container section:first-child{
-    margin-top: 50px;
+*{
+    border-radius: 0px !important;
+}
+
+.container header{
+    margin: 50px 0px;
 }
 
 .container section{
@@ -36,10 +40,6 @@
     border-bottom: 1px dotted #cccccc;
 }
 
-.container section form button, .container section form fieldset input[type="text"], .container section form fieldset select, .container section form fieldset textarea{
-    border-radius: 0px;
-}
-
 .container section form .form-group label.control-label{
     font-weight: 100;
     font-size: 12px;
@@ -66,5 +66,22 @@
     display: inline;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
+    text-transform: uppercase;
+}
+
+.container section #load_modal .modal-header h4.modal-title{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+
+.container section #load_modal .modal-body h2{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    margin: 0px;
+}
+
+.container section #load_modal .modal-body span{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
     text-transform: uppercase;
 }
