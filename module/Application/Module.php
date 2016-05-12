@@ -28,11 +28,12 @@ class Module
         $translator->setLocale ('pt_BR');
         AbstractValidator::setDefaultTranslator(new \Zend\Mvc\I18n\Translator($translator));
 
-        /**
-         * @var $entityManager \Doctrine\ORM\EntityManager
-         */
-        $entityManager = $e->getApplication()->getServiceManager()->get('doctrine.entitymanager.orm_default');
-        $entityManager->getConfiguration()->addFilter('soft-deleteable', 'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter');
+        $em = $e->getApplication()->getServiceManager()->get('Doctrine\ORM\EntityManager');
+        $em->getConfiguration()->addFilter(
+            'soft-deleteable',
+            'Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter'
+        );
+        $em->getFilters()->enable('soft-deleteable');
     }
 
     public function getConfig()
