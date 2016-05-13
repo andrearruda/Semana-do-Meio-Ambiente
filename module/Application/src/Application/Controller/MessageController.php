@@ -107,7 +107,7 @@ class MessageController extends AbstractActionController
         return $jsonModel;
     }
 
-    public function xmlAction()
+    public function listAction()
     {
         $hydrator = new DoctrineHydrator($this->getEntityManager());
         $service_message = new MessageService($this->getEntityManager());
