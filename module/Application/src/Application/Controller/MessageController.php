@@ -8,6 +8,8 @@ use Zend\Paginator\Adapter\ArrayAdapter;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject as DoctrineHydrator;
+use Thapp\XmlBuilder\XMLBuilder;
+use Thapp\XmlBuilder\Normalizer;
 
 class MessageController extends AbstractActionController
 {
@@ -107,15 +109,56 @@ class MessageController extends AbstractActionController
 
     public function xmlAction()
     {
+        $hydrator = new DoctrineHydrator($this->getEntityManager());
         $service_message = new MessageService($this->getEntityManager());
-        $message = $service_message->findByActive();
+        $messages = $service_message->findByActive();
 
-        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
-        $data = $serializer->serialize($message, 'xml');
+        $data = array();
+
+        foreach($messages as $key => $message)
+        {
+            $data[$key] = $hydrator->extract($message);
+            $data[$key]['staff'] = $hydrator->extract($message->getStaff());
+            $data[$key]['staff']['unit'] = $hydrator->extract($message->getStaff()->getUnit());
+
+            $data[$key]['image'] = 'http://' . $this->getRequest()->getServer('HTTP_HOST') . '/upload/images/semanadomeioambiente/middle/' . $data[$key]['image'];
+
+            unset(
+                $data[$key]['id'],
+                $data[$key]['createdAt'], $data[$key]['updatedAt'], $data[$key]['deletedAt'],
+                $data[$key]['active']
+            );
+
+            unset(
+                $data[$key]['staff']['id'],
+                $data[$key]['staff']['createdAt'], $data[$key]['staff']['updatedAt'], $data[$key]['staff']['deletedAt']
+            );
+
+            unset(
+                $data[$key]['staff']['unit']['id'],
+                $data[$key]['staff']['unit']['createdAt'], $data[$key]['staff']['unit']['updatedAt'], $data[$key]['staff']['unit']['deletedAt']
+            );
+        }
+
+        $xmlBuilder = new XmlBuilder('root');
+        $xmlBuilder->setSingularizer(function ($name) {
+            if ('matches' === $name) {
+                return 'match';
+            }
+            if ('teams' === $name) {
+                return 'team';
+            }
+            if ('keys' === $name) {
+                return 'key';
+            }
+            return $name;
+        });
+        $xmlBuilder->load($data);
+        $xml_output = $xmlBuilder->createXML(true);
 
         $response = $this->getResponse();
         $response->getHeaders()->addHeaderLine('Content-Type', 'text/xml; charset=utf-8');
-        $response->setContent($data);
+        $response->setContent($xml_output);
 
         return $response;
     }
