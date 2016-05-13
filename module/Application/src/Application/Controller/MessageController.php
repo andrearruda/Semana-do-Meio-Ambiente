@@ -105,6 +105,21 @@ class MessageController extends AbstractActionController
         return $jsonModel;
     }
 
+    public function xmlAction()
+    {
+        $service_message = new MessageService($this->getEntityManager());
+        $message = $service_message->findByActive();
+
+        $serializer = \JMS\Serializer\SerializerBuilder::create()->build();
+        $data = $serializer->serialize($message, 'xml');
+
+        $response = $this->getResponse();
+        $response->getHeaders()->addHeaderLine('Content-Type', 'text/xml; charset=utf-8');
+        $response->setContent($data);
+
+        return $response;
+    }
+
     /**
      * @return mixed
      */

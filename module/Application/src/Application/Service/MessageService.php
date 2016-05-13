@@ -118,6 +118,12 @@ class MessageService
         return $repository_message->findBy(array(), array('id' => 'desc'));
     }
 
+    public function findByActive()
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        return $repository_message->findByActive(1);
+    }
+
     public function findById($id)
     {
         $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
