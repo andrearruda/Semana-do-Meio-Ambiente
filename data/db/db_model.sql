@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema semanadomeioambiente
+-- Schema vocenadecotv.com.br
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema semanadomeioambiente
+-- Schema vocenadecotv.com.br
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `semanadomeioambiente` DEFAULT CHARACTER SET utf8 ;
-USE `semanadomeioambiente` ;
+CREATE SCHEMA IF NOT EXISTS `vocenadecotv.com.br` DEFAULT CHARACTER SET utf8 ;
+USE `vocenadecotv.com.br` ;
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`role`
+-- Table `vocenadecotv.com.br`.`role`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`role` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`role` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `parent_id` INT(11) NULL DEFAULT NULL,
   `roleId` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
@@ -29,15 +29,15 @@ CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`role` (
   INDEX `IDX_57698A6A727ACA70` (`parent_id` ASC),
   CONSTRAINT `FK_57698A6A727ACA70`
     FOREIGN KEY (`parent_id`)
-    REFERENCES `semanadomeioambiente`.`role` (`id`))
+    REFERENCES `vocenadecotv.com.br`.`role` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`unit`
+-- Table `vocenadecotv.com.br`.`unit`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`unit` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`unit` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `initials` VARCHAR(45) NOT NULL,
@@ -46,9 +46,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`staff`
+-- Table `vocenadecotv.com.br`.`staff`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`staff` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`staff` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `unit_id` INT NOT NULL,
   `name` VARCHAR(25) NOT NULL,
@@ -61,16 +61,16 @@ CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`staff` (
   INDEX `fk_staff_unit1_idx` (`unit_id` ASC),
   CONSTRAINT `fk_staff_unit1`
     FOREIGN KEY (`unit_id`)
-    REFERENCES `semanadomeioambiente`.`unit` (`id`)
+    REFERENCES `vocenadecotv.com.br`.`unit` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`message`
+-- Table `vocenadecotv.com.br`.`message`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`message` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`message` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `staff_id` INT NOT NULL,
   `description` VARCHAR(140) NOT NULL,
@@ -83,16 +83,16 @@ CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`message` (
   INDEX `fk_message_staff1_idx` (`staff_id` ASC),
   CONSTRAINT `fk_message_staff1`
     FOREIGN KEY (`staff_id`)
-    REFERENCES `semanadomeioambiente`.`staff` (`id`)
+    REFERENCES `vocenadecotv.com.br`.`staff` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`users`
+-- Table `vocenadecotv.com.br`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`users` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`users` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(255) CHARACTER SET 'utf8' NULL DEFAULT NULL,
   `email` VARCHAR(255) CHARACTER SET 'utf8' NOT NULL,
@@ -107,9 +107,9 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `semanadomeioambiente`.`users_roles`
+-- Table `vocenadecotv.com.br`.`users_roles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`users_roles` (
+CREATE TABLE IF NOT EXISTS `vocenadecotv.com.br`.`users_roles` (
   `user_id` INT(11) NOT NULL,
   `role_id` INT(11) NOT NULL,
   PRIMARY KEY (`user_id`, `role_id`),
@@ -117,10 +117,10 @@ CREATE TABLE IF NOT EXISTS `semanadomeioambiente`.`users_roles` (
   INDEX `IDX_51498A8ED60322AC` (`role_id` ASC),
   CONSTRAINT `FK_51498A8ED60322AC`
     FOREIGN KEY (`role_id`)
-    REFERENCES `semanadomeioambiente`.`role` (`id`),
+    REFERENCES `vocenadecotv.com.br`.`role` (`id`),
   CONSTRAINT `FK_51498A8EA76ED395`
     FOREIGN KEY (`user_id`)
-    REFERENCES `semanadomeioambiente`.`users` (`id`))
+    REFERENCES `vocenadecotv.com.br`.`users` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
