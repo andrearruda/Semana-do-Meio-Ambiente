@@ -7,6 +7,7 @@ return array(
             \BjyAuthorize\Guard\Controller::class => array(
                 ['controller' => 'Application\Controller\Index', 'roles' => ['guest', 'user']],
                 ['controller' => 'Application\Controller\Message', 'roles' => ['guest', 'user']],
+                ['controller' => 'Application\Controller\ImageUpload', 'roles' => ['guest', 'user']],
                 ['controller' => 'zfcuser', 'roles' => []],
             ),
 
@@ -18,10 +19,13 @@ return array(
 
                 ['route' => 'home', 'roles' => ['guest', 'user']],
                 ['route' => 'home/thankyou', 'roles' => ['guest', 'user']],
+
                 ['route' => 'message', 'roles' => ['user']],
                 ['route' => 'message/default', 'roles' => ['user']],
                 ['route' => 'message/paginator', 'roles' => ['user']],
                 ['route' => 'message/list', 'roles' => ['guest', 'user']],
+
+                ['route' => 'upload/default', 'roles' => ['guest', 'user']],
             )
         )
     )

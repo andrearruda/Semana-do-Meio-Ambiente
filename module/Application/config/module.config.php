@@ -94,7 +94,7 @@ return array(
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
-                    'default' => array(
+                    'images' => array(
                         'type'    => 'Segment',
                         'options' => array(
                             'route'    => '/images/[:folder]/[:type]/[:file]',
