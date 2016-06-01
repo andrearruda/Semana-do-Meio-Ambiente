@@ -90,10 +90,25 @@ class MessageService
 
     public function update($data, $id)
     {
-        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
-        $message = $repository_message->findOneById($id);
+        $data_staff = array(
+            'unit' => $data['fieldset_staff']['id_unit'],
+            'name' => $data['fieldset_staff']['name'],
+            'email' => $data['fieldset_staff']['email'],
+            'departament' => $data['fieldset_staff']['departament'],
+        );
 
-        $this->hydrator->hydrate($data, $message);
+        $data_message = array(
+            'description' => $data['fieldset_message']['description'],
+        );
+
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+
+        $message = $repository_message->findOneById($id);
+        $message->getStaff()->setName($data_staff['name']);
+        $message->getStaff()->setEmail($data_staff['email']);
+        $message->getStaff()->setDepartament($data_staff['departament']);
+        $message->getStaff()->setUnit($this->entity_manager->getRepository('Application\Entity\Unit')->findOneById($data_staff['unit']));
+        $message->setDescription($data_message['description']);
 
         $this->entity_manager->persist($message);
         $this->entity_manager->flush();

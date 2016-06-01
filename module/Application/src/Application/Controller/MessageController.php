@@ -1,6 +1,7 @@
 <?php
 namespace Application\Controller;
 
+use Application\Form\MessageForm;
 use Application\Service\MessageService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\Paginator\Paginator;
@@ -49,15 +50,68 @@ class MessageController extends AbstractActionController
     public function editAction()
     {
         $id = $this->params()->fromRoute('id');
-        $service_message = new MessageService($this->getEntityManager());
 
+        $form = new MessageForm($this->getEntityManager());
+        $service_message = new MessageService($this->getEntityManager());
         $entity = $service_message->findById($id);
 
-        $viewModel = new ViewModel(array(
-            'entity' => $entity
-        ));
-        $viewModel->setTerminal(true);
-        return $viewModel;
+        $data_form = array(
+            'fieldset_staff' => array(
+                'id_unit' => $entity->getStaff()->getUnit()->getId(),
+                'name' => $entity->getStaff()->getName(),
+                'email' => $entity->getStaff()->getEmail(),
+                'departament' => $entity->getStaff()->getDepartament()
+            ),
+            'fieldset_message' => array(
+                'description' => $entity->getDescription(),
+            )
+        );
+
+        $form->setData($data_form);
+        $form->get('fieldset_message')->get('image')->setAttribute('required', false);
+        $form->getInputFilter()->get('fieldset_message')->remove('image');
+        $form->get('fieldset_message')->remove('image');
+
+        $request = $this->getRequest();
+        if ($request->isPost())
+        {
+            $data_post = array(
+                'csrf' => $this->getRequest()->getPost('csrf'),
+                'fieldset_staff' => array(
+                    'id_unit' => $this->getRequest()->getPost('fieldset_staff')['id_unit'],
+                    'name' => $this->getRequest()->getPost('fieldset_staff')['name'],
+                    'email' => $this->getRequest()->getPost('fieldset_staff')['email'],
+                    'departament' => $this->getRequest()->getPost('fieldset_staff')['departament'],
+                ),
+                'fieldset_message' => array(
+                    'description' => $this->getRequest()->getPost('fieldset_message')['description'],
+                    'image' => $this->getRequest()->getFiles('fieldset_message')['image'],
+                )
+            );
+
+            $form->setData($data_post);
+            if($form->isValid())
+            {
+                $data_form = $form->getData();
+
+                $service_message = new MessageService($this->getEntityManager());
+                $service_message->update($data_form, $id);
+
+                return $this->redirect()->toRoute('message');
+            }
+            else
+            {
+                $data_form = $form->getData();
+                if(@file_exists($data_form['fieldset_message']['image']['tmp_name']))
+                {
+                    unlink($data_form['fieldset_message']['image']['tmp_name']);
+                }
+            }
+        }
+
+        return array(
+            'form' => $form
+        );
     }
 
     public function deleteAction()

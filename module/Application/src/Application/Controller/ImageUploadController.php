@@ -13,8 +13,8 @@ class ImageUploadController extends AbstractActionController
         $file = $this->params()->fromRoute('file');
 
         $path = __DIR__ . '/../../../../../data/uploads/' . $folder . '/' . $type . '/' . $file;
-        $response = $this->getResponse();
 
+        $response = $this->getResponse();
         if(file_exists($path))
         {
             $output = file_get_contents($path);
