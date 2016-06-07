@@ -150,8 +150,9 @@ class MessageController extends AbstractActionController
         $data = array(
             'active' => $this->params()->fromQuery('active')
         );
+
         $service_message = new MessageService($this->getEntityManager());
-        $message = $service_message->update($data, $id);
+        $message = $service_message->active($data, $id);
 
         $hydrator = new DoctrineHydrator($this->getEntityManager());
         $data = $hydrator->extract($message);

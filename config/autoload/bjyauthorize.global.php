@@ -25,7 +25,7 @@ return array(
                 ['route' => 'message/paginator', 'roles' => ['user']],
                 ['route' => 'message/list', 'roles' => ['guest', 'user']],
 
-                ['route' => 'upload/default', 'roles' => ['guest', 'user']],
+                ['route' => 'upload', 'roles' => ['guest', 'user']],
             )
         )
     )

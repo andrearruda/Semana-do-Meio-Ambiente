@@ -116,6 +116,18 @@ class MessageService
         return $message;
     }
 
+    public function active($data, $id)
+    {
+        $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');
+        $message = $repository_message->findOneById($id);
+        $message->setActive($data['active']);
+
+        $this->entity_manager->persist($message);
+        $this->entity_manager->flush();
+
+        return $message;
+    }
+
     public function delete($id)
     {
         $repository_message = $this->entity_manager->getRepository('Application\Entity\Message');

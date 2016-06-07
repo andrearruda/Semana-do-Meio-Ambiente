@@ -36,6 +36,7 @@ return array(
                     )
                 )
             ),
+
             'message' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
@@ -87,28 +88,19 @@ return array(
                     ),
                 )
             ),
+
             'upload' => array(
-                'type'    => 'Literal',
+                'type'    => 'Segment',
                 'options' => array(
-                    'route'    => '/upload',
-                ),
-                'may_terminate' => true,
-                'child_routes' => array(
-                    'images' => array(
-                        'type'    => 'Segment',
-                        'options' => array(
-                            'route'    => '/images/[:folder]/[:type]/[:file]',
-                            'constraints' => array(
-                                'folder' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                                'type'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-//                                'file'     => '[a-zA-Z][a-zA-Z0-9_-]*',
-                            ),
-                            'defaults' => array(
-                                '__NAMESPACE__' => 'Application\Controller',
-                                'controller'    => 'ImageUpload',
-                                'action'        => 'index',
-                            ),
-                        ),
+                    'route'    => '/upload/images/[:folder]/[:type]/[:file]',
+                    'constraints' => array(
+                        'folder' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'type'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Application\Controller',
+                        'controller'    => 'ImageUpload',
+                        'action'        => 'index'
                     ),
                 ),
             ),
